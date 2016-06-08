@@ -160,7 +160,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetricCallHandler.cs" />
     <Compile Include="MetricCallHandlerAttribute.cs" />
     <Compile Include="MetricInterceptionBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

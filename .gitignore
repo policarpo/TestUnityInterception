@@ -3,3 +3,5 @@
 ################################################################################
 
 /packages
+/TestAppWpf/bin/Debug
+/TestAppWpf/obj/Debug

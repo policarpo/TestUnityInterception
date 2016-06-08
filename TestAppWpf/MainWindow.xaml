@@ -8,9 +8,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <StackPanel>
-        
-        <ext:BusyIndicator IsBusy="{Binding IsLoading}">
-            
-        </ext:BusyIndicator>
+        <StackPanel>
+            <ext:BusyIndicator IsBusy="{Binding IsLoading}">
+
+            </ext:BusyIndicator>
+        </StackPanel>
+        <StackPanel>
+            <Button HorizontalAlignment="Center" Command="{Binding LoadCommand}">Load</Button>
+        </StackPanel>
     </StackPanel>
+    
 </Window>

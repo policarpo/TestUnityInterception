@@ -1,14 +1,16 @@
-﻿using Microsoft.Practices.Prism.Commands;
+﻿using System.Threading.Tasks;
+
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace TestAppWpf
 {
     public interface ILoadViewModel
     {
-        Task OnActivated();
         bool IsLoading { get; set; }
+
+        DelegateCommand LoadCommand { get; set; }
+        Task OnLoad();
     }
 
     public class LoadViewModel : BindableBase, ILoadViewModel
@@ -17,27 +19,28 @@ namespace TestAppWpf
 
         public LoadViewModel()
         {
-            
+            LoadCommand = DelegateCommand.FromAsyncHandler(OnLoad);
         }
 
         public bool IsLoading
         {
-            get { return _isLoading; }
+            get
+            {
+                return _isLoading;
+            }
             set
             {
-                if (_isLoading == value) return;
+                if(_isLoading == value)
+                    return;
                 _isLoading = value;
                 OnPropertyChanged(() => IsLoading);
             }
         }
 
-        public DelegateCommand LoadCommand
-        {
-            get; set;
-        }
+        public DelegateCommand LoadCommand { get; set; }
 
         [MetricInterception(1)]
-        public virtual async Task OnActivated()
+        public virtual async Task OnLoad()
         {
             IsLoading = true;
 
@@ -46,6 +49,4 @@ namespace TestAppWpf
             IsLoading = false;
         }
     }
-
-    
 }

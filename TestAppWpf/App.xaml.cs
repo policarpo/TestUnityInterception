@@ -11,7 +11,8 @@ namespace TestAppWpf
         {
             base.OnStartup(e);
 
-            var bootstrapper = new Bootstrapper();
+            //var bootstrapper = new Bootstrapper();
+            var bootstrapper = new WpfBootstrapper();
             bootstrapper.Run();
         }
     }

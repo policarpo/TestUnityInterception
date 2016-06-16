@@ -1,35 +1,28 @@
-﻿using System.Windows;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.InterceptionExtension;
-using Prism.Unity;
-using System.ComponentModel;
 using System;
+using System.ComponentModel;
+using System.Windows;
+
+using Prism.SimpleInjector;
 
 namespace TestAppWpf
 {
-    public class Bootstrapper : UnityBootstrapper
+    public class WpfBootstrapper : SimpleInjectorBootstrapper
     {
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-                    
-            Container.AddNewExtension<Interception>();            
-            Container.RegisterType<ILoadViewModel, LoadViewModel>(
-                new Interceptor<VirtualMethodInterceptor>(),
-                new InterceptionBehavior<PolicyInjectionBehavior>()
-                );
         }
 
         protected override DependencyObject CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            return Container.GetInstance<MainWindow>();
         }
 
         protected override void InitializeShell()
         {
             Application.Current.MainWindow = (Window)Shell;
             Application.Current.MainWindow.Show();
-            var viewModel = Container.Resolve<ILoadViewModel>();
+            var viewModel = Container.GetInstance<ILoadViewModel>();
             Application.Current.MainWindow.DataContext = viewModel;
             ((INotifyPropertyChanged)viewModel).PropertyChanged += Bootstrapper_PropertyChanged;
         }
